@@ -1,4 +1,4 @@
-package controllers
+package chat
 
 import "golang.org/x/net/websocket"
 

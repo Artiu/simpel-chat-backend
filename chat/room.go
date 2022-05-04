@@ -1,4 +1,4 @@
-package controllers
+package chat
 
 import (
 	"encoding/json"

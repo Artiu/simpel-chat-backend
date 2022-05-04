@@ -1,4 +1,4 @@
-package room
+package chat
 
 type Room struct {
 	Id          string
@@ -8,7 +8,7 @@ type Room struct {
 
 type Message struct {
 	Id      string
-	Room    string
+	RoomID  string
 	Content string
 	Sender  string
 }

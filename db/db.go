@@ -1,17 +1,28 @@
 package db
 
 import (
-	"github.com/gocql/gocql"
+	"context"
+	"log"
+	"os"
+
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-var Session *gocql.Session
+var Client *mongo.Client
 
 func Init() {
 	var err error
-	cluster := gocql.NewCluster("localhost:9042")
-	Session, err = cluster.CreateSession()
+
+	uri := os.Getenv("MONGODB_URI")
+	Client, err = mongo.Connect(context.TODO(), options.Client().ApplyURI(uri))
 	if err != nil {
 		panic(err)
 	}
-	Session.Query("CREATE KEYSPACE IF NOT EXISTS sleep_centre WITH REPLICATION = {'class' : 'NetworkTopologyStrategy', 'replication_factor': 3}")
+	log.Println("Connected to MongoDB")
+}
+
+func Disconnect() {
+	Client.Disconnect(context.TODO())
+	log.Println("Disconnected from MongoDB")
 }
