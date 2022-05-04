@@ -28,6 +28,7 @@ func main() {
 	e.POST("/login", user.LoginHandler)
 	e.POST("/register", user.RegisterHandler)
 	e.Use(middleware.JWTWithConfig(middleware.JWTConfig{TokenLookup: "cookie:accessToken", SigningKey: []byte(os.Getenv("JWT_SIGNING_KEY"))}))
+	e.GET("/getInfo", user.GetInfoHandler)
 	// e.GET("/ws", func(c echo.Context) error {
 	// 	m.HandleRequest(c.Response().Writer, c.Request())
 	// 	return nil
